@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Tools Bug Wa</title>
+<style>
+/* Semua elemen tidak bisa di-select atau di-drag */
+body, img, .input-box, .menu, .teks {
+    user-select: none;
+    -webkit-user-drag: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Body */
+body {
+    margin:0;
+    padding:0;
+    background-color:black;
+    overflow:hidden;
+    height:100vh;
+}
+
+/* Gambar utama di tengah layar */
+.center-img {
+    width: 300px;
+    height: 300px; /* contoh */
+    border-radius: 50%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    /* Base border */
+    border: 5px solid orange;
+
+    /* Glow efek api + neon */
+    box-shadow:
+        0 0 10px orange,
+        0 0 20px red,
+        0 0 30px yellow,
+        0 0 40px lime,
+        0 0 50px cyan;
+
+    /* Animasi flicker api + neon */
+    animation: flickerGlow 2s infinite alternate;
+}
+
+@keyframes flickerGlow {
+    0% {
+        box-shadow:
+            0 0 10px orange,
+            0 0 20px red,
+            0 0 30px yellow,
+            0 0 40px lime,
+            0 0 50px cyan;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    25% {
+        box-shadow:
+            0 0 15px orange,
+            0 0 25px red,
+            0 0 35px yellow,
+            0 0 50px lime,
+            0 0 60px cyan;
+        transform: translate(-50%, -50%) scale(1.02);
+    }
+    50% {
+        box-shadow:
+            0 0 8px orange,
+            0 0 18px red,
+            0 0 28px yellow,
+            0 0 35px lime,
+            0 0 45px cyan;
+        transform: translate(-50%, -50%) scale(0.98);
+    }
+    75% {
+        box-shadow:
+            0 0 12px orange,
+            0 0 22px red,
+            0 0 32px yellow,
+            0 0 45px lime,
+            0 0 55px cyan;
+        transform: translate(-50%, -50%) scale(1.01);
+    }
+    100% {
+        box-shadow:
+            0 0 10px orange,
+            0 0 20px red,
+            0 0 30px yellow,
+            0 0 40px lime,
+            0 0 50px cyan;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+.center-img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    position: fixed;
+    top: 30%; /* lebih ke atas dari 50% */
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+/* Menu dan teks */
+.menu {
+    position: fixed;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 44px;
+    color: white;
+}
+
+.teks {
+    position: fixed;
+    top: 350px; /* tepat di bawah gambar (top + height gambar + margin) */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    color: white;
+}
+
+
+.input-box {
+    position: fixed;
+    top: calc(50% + 150px + 20px); /* 50% = top tengah layar, 150px = setengah height gambar, 20px = margin bawah */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 50px;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    font-size: 24px;
+    color: lime;
+    background: #111;
+    border: 2px solid #00ff00;
+    border-radius: 10px;
+    padding: 0 15px;
+    outline: none;
+    box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+}
+/* Firefly */
+.firefly {
+    position: fixed;
+    width:5px;
+    height:5px;
+    background:lime;
+    border-radius:50%;
+    filter:blur(2px);
+    animation:move 5s linear infinite;
+}
+
+/* Animasi firefly */
+@keyframes move {
+    0%{transform:translate(0,0);}
+    25%{transform:translate(200px,100px);}
+    50%{transform:translate(-100px,200px);}
+    75%{transform:translate(150px,50px);}
+    100%{transform:translate(0,0);}
+}
+
+/* Profile logo */
+.profile-logo {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    cursor:pointer;
+    transition: transform 0.2s;
+}
+
+.profile-logo:hover {
+    transform: scale(1.1);
+}
+
+/* Loading */
+#loading {
+    position: fixed;
+    top: 570px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    color: lime;
+    display: none;
+}
+/* Box info (panel keterangan) */
+.info-box {
+    position: fixed;
+    top: 450px; /* di bawah gambar */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 20px;
+    max-width: 90%;
+    
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid lime;
+    border-radius: 10px;
+
+    box-shadow:
+        0 0 10px lime,
+        inset 0 0 10px rgba(0,255,0,0.3);
+
+    animation: infoGlow 1.5s infinite alternate;
+}
+
+/* Teks di dalam box */
+.info-text {
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    display: block;
+}
+
+/* Animasi glow halus */
+@keyframes infoGlow {
+    0% {
+        box-shadow:
+            0 0 8px lime,
+            inset 0 0 8px rgba(0,255,0,0.3);
+    }
+    100% {
+        box-shadow:
+            0 0 18px lime,
+            inset 0 0 14px rgba(0,255,0,0.5);
+    }
+}
+/* Wrapper untuk credit */
+.credit-bar {
+    position: fixed;
+    bottom: 0;
+    left: 100%; /* mulai di luar kanan */
+    white-space: nowrap;
+    font-size: 16px;
+    color: lime;
+    background: rgba(0,0,0,0.7);
+    padding: 5px 10px;
+    border-top: 2px solid lime;
+    z-index: 999;
+    animation: slideLeft 15s linear infinite;
+}
+
+/* Animasi berjalan dari kanan ke kiri */
+@keyframes slideLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100vw); /* geser ke kiri penuh */
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- Fireflies -->
+<div class="firefly" style="top:50px; left:100px;"></div>
+<div class="firefly" style="top:200px; left:300px;"></div>
+<div class="firefly" style="top:150px; left:50px;"></div>
+
+<!-- Gambar utama -->
+<img src="https://iili.io/fGCgxp4.jpg" alt="Gambar" class="center-img">
+
+<!-- Menu & teks -->
+<div class="menu">FannyFa Developer</div>
+<div class="info-box">
+    <span class="info-text">
+        Masukan nomor untuk mengirim sender ke target
+    </span>
+</div>
+
+<!-- Input box -->
+<div class="input-box">
+    <input type="text" placeholder="+628xxx" id="userInput">
+</div>
+
+<!-- Output & loading -->
+<div id="loading">Loading...</div>
+<div id="output" class="teks"></div>
+
+<!-- Profile logo -->
+<img src="https://iili.io/fGa7AWF.png" alt="profil" class="profile-logo">
+
+<script>
+const input = document.getElementById("userInput");
+const output = document.getElementById("output");
+const loading = document.getElementById("loading");
+
+input.addEventListener("keydown", function(e) {
+    if(e.key === "Enter") {
+        const text = input.value.trim();
+        if(text === "") return; // abaikan jika kosong
+
+        // munculkan loading
+        loading.style.display = "block";
+        output.textContent = "";
+
+        // delay 2 detik, lalu tampilkan teks
+        setTimeout(() => {
+            loading.style.display = "none";
+            output.textContent = text;
+            input.value = ""; // kosongkan input
+        }, 2000);
+    }
+});
+</script>
+
+</body>
+<!-- Credit berjalan -->
+<div class="credit-bar">
+    Developer: FannyFa | Email: example@gmail.com | Call: 187
+</div>
+</html>
